@@ -6,7 +6,7 @@
         "invalid_number": "Hmm... that doesn't look like a valid number.",
         "operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
         "invalid_operation": "You must choose 1, 2, 3, or 4",
-        "result": "The result is:",
+        "result": "The result is: {output}",
         "restart": "Enter 'yes' if you want to do another calculation.",
         "division_by_zero": "Error: Cannot divide by zero."
     },
