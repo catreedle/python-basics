@@ -1,0 +1,24 @@
+{
+    "en": {
+        "welcome": "Welcome to Calculator!",
+        "first_number": "What's the first number?",
+        "second_number": "What's the second number?",
+        "invalid_number": "Hmm... that doesn't look like a valid number.",
+        "operation": "What operation would you like to perform?\n1) Add 2) Subtract 3) Multiply 4) Divide",
+        "invalid_operation": "You must choose 1, 2, 3, or 4",
+        "result": "The result is:",
+        "restart": "Enter 'yes' if you want to do another calculation.",
+        "division_by_zero": "Error: Cannot divide by zero."
+    },
+    "id": {
+        "welcome": "Selamat datang di kalkulator!",
+        "first_number": "Apa angka pertama?",
+        "second_number": "Apa angka kedua?",
+        "invalid_number": "Hmm... Sepertinya bukan angka yang valid",
+        "operation": "Operasi apa yang ingin kamu lakukan?\n1) Tambah 2) Kurang 3) Kali 4) Bagi",
+        "invalid_operation": "Kamu harus pilih 1, 2, 3, atau 4",
+        "result": "Hasilnya adalah: {output}",
+        "restart": "Masukkan 'yes' jika mau melakukan perhitungan lagi.",
+        "division_by_zero": "Error. Tidak bisa pembagian dengan angka 0."
+    }
+}

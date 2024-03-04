@@ -1,51 +1,72 @@
+import json
+
+# Open the JSON file for reading
+with open('file.json', 'r') as file:
+    MESSAGE = json.load(file)
+
+# Now 'MESSAGE' contains the contents of the JSON file
+# as a Python dictionary or list
+
 def prompt(message):
     print(f'==> {message}')
 
-prompt('Welcome to Calculator!')
+def messages(message, lang="id"):
+    return MESSAGE[lang][message]
+
+prompt(messages("welcome"))
 
 def invalid_number(number_str):
     try:
-        int(number_str)
+        float(number_str)
     except ValueError:
         return True
     return False
 
+while True: # looping through calculator process
 # Ask the user for the first number.
-prompt("What's the first number?")
-number1 = input()
-
-while invalid_number(number1):
-    prompt("Hmm... that doesn't look like a valid number.")
+    prompt(messages("first_number"))
     number1 = input()
 
-# Ask the user for the second number.
-prompt("What's the second number?")
-number2 = input()
+    while invalid_number(number1):
+        prompt(messages("invalid_number"))
+        number1 = input()
 
-while invalid_number(number2):
-    prompt("Hmm.. that doesn't look like a valid number.")
+    # Ask the user for the second number.
+    prompt(messages("second_number"))
     number2 = input()
 
-# Ask the user for an operation to perform.
-prompt('''What operation would you like to perform?
-1) Add 2) Subtract 3) Multiply 4) Divide''')
-operation = input()
+    while invalid_number(number2):
+        prompt(messages("invalid_number"))
+        number2 = input()
 
-while operation not in ["1", "2", "3", "4"]:
-    prompt('You must choose 1, 2, 3, or 4')
+    # Ask the user for an operation to perform.
+    prompt(messages("operation"))
     operation = input()
 
-# Perform the operation on the two numbers.
-match operation:
-    case '1': # '1' represents addition
-        output = int(number1) + int(number2)
-    case '2': # '2' represents subtraction
-        output = int(number1) - int(number2)
-    case '3': # '3' represents multiplication
-        output = int(number1) * int(number2)
-    case '4': # '4' represents division
-        output = int(number1) / int(number2)
+    while operation not in ["1", "2", "3", "4"]:
+        prompt(messages("invalid_operation"))
+        operation = input()
 
+    # Perform the operation on the two numbers.
+    match operation:
+        case '1': # '1' represents addition
+            output = float(number1) + float(number2)
+        case '2': # '2' represents subtraction
+            output = float(number1) - float(number2)
+        case '3': # '3' represents multiplication
+            output = float(number1) * float(number2)
+        case '4': # '4' represents division
+            if float(number2) == 0:
+                prompt(messages("division_by_zero"))
+                exit(1)
+            output = float(number1) / float(number2)
 
-prompt(f"The result is: {output}")
-# Print the result to the terminal.
+    output = round(output, 2) # Round the result to two decimals
+
+    prompt(messages("result").format(output=output))
+    # Print the result to the terminal.
+    prompt(messages("restart"))
+    # prompt input to restart calculator
+    restart = input()
+    if restart != 'yes':
+        break
