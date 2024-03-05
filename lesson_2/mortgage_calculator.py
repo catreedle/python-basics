@@ -27,7 +27,8 @@ while True:
         loan_amount = input()
 
     # the Annual Percentage Rate (APR)
-    prompt('What\'s the Annual Percentage Rate? (Enter the number of % for example: 5)')
+    prompt('''What\'s the Annual Percentage Rate?
+           (Enter the number of % for example: 5)''')
     annual_percentage_rate = input()
 
     while validate_input(annual_percentage_rate) is False:
@@ -59,7 +60,7 @@ while True:
     # n = loan duration in months
 
     def get_monthly_payment(loan_amount_, monthly_interest, loan_months):
-        result = float(loan_amount_) * (monthly_interest / 
+        result = float(loan_amount_) * (monthly_interest /
                 (1 - (1 + monthly_interest) ** -loan_months))
         return result
 
