@@ -1,3 +1,19 @@
+# Write a function that takes one integer argument and returns True
+# when the number's absolute value is odd, False otherwise.
+
+# START
+# given an integer called "number"
+
+# SET modulus = number % 2
+# SET is_odd
+
+# if modulus == 0
+#   is_odd = False
+# else
+#   is_odd = True
+# PRINT is_odd
+# END
+
 def check_if_odd(value):
     '''
     A function that takes one integer argument and returns True
