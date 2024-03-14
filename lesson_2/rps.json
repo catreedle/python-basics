@@ -10,7 +10,7 @@
     "choice_invalid": "That's not a valid choice\n",
     "restart_invalid": "Please enter 'y' or 'n'.\n",
     "scores": "Score is Player: {player} | Computer: {computer}",
-    "grand_winner": "{winner_round} is Grand Winner! 🎉 🎉 🎉",
+    "grand_winner": "{winner_match} is Grand Winner! 🎉 🎉 🎉",
     "reset": "Match is over. Scores are reset to 0\n"
    }
 }

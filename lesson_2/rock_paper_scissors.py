@@ -22,8 +22,8 @@ VALID_CHOICES = {
 def prompt(message):
     print(f'>>>{message}')
 
-def prompt_input(message):
-    return input(f'>>>{message}')
+def get_user_input(prompt_message):
+    return input(f'>>>{prompt_message}')
 
 def get_winner(player, computer):
     if player == computer:
@@ -42,34 +42,36 @@ def get_winner(player, computer):
     return messages("computer_win")
 
 def restart_game():
-    answer = prompt_input(messages("restart")).lower()
+    answer = get_user_input(messages("restart")).lower()
 
     while not(answer in ('n', 'no') or answer in ('y', 'yes')):
-        answer = prompt_input(messages("restart_invalid")).lower()
+        answer = get_user_input(messages("restart_invalid")).lower()
 
     if answer in ['y', 'yes']:
         clear_screen()
-        winner = play_game()
-
-        return winner
-    return None
+        return True
+    return False
 
 def validate_input(value, values_dict):
     while value not in values_dict.values():
         if value in values_dict.keys():
             value = values_dict[value]
         else:
-            value = prompt_input("That's not a valid choice\n")
+            value = get_user_input("That's not a valid choice\n")
 
     return value
 
-def count_score(winner, player_score, computer_score):
+def update_score(winner, player_score, computer_score):
     match winner:
         case 'You win!':
             player_score += 1
         case 'Computer wins!':
             computer_score += 1
     return player_score, computer_score
+
+def display_scores(player_score, computer_score):
+    prompt(messages("scores").
+           format(player=player_score,computer=computer_score))
 
 def grand_winner(player_score, computer_score):
     result = ''
@@ -84,60 +86,59 @@ def reset_score(player_score, computer_score):
     computer_score = 0
     return player_score, computer_score
 
-def play_game():
+def initialize_game():
+    clear_screen()
+    player_score = 0
+    computer_score = 0
+    return player_score, computer_score
+
+def get_player_choice():
     choices = ', '.join(VALID_CHOICES.values())
     shorthand = ', '.join(VALID_CHOICES)
-    choice = prompt_input(messages("input_choice").
-                          format(choices=choices, shorthand=shorthand)).lower()
 
+    choice = get_user_input(messages("input_choice").
+                          format(choices=choices, shorthand=shorthand)).lower()
     choice = validate_input(choice, VALID_CHOICES)
 
+    return choice
+
+def get_computer_choice():
     computer_choice = random.choice(list((VALID_CHOICES.values())))
+    return computer_choice
+
+def play_round():
+    choice = get_player_choice()
+    computer_choice = get_computer_choice()
+
     prompt(messages("display_choices").
            format(choice=choice, computer_choice=computer_choice))
     winner = get_winner(choice, computer_choice)
     return winner
 
-def rock_paper_scissors():
-    clear_screen()
-
-    player_score = 0
-    computer_score = 0
-
+def play_game():
+    player_score, computer_score = initialize_game()
     choices = (', '.join(VALID_CHOICES.values()))
+
     prompt(messages("welcome").format(choices=choices))
 
-    winner = play_game()
-    prompt(winner)
-
-    player_score, computer_score = count_score(winner,
-                                               player_score, computer_score)
-
-    prompt(messages("scores").
-           format(player=player_score,computer=computer_score))
-
     while True:
-        winner = restart_game()
-        if winner:
-            prompt(winner)
-            player_score, computer_score = count_score(winner,
-                                            player_score, computer_score)
+        winner = play_round()
+        prompt(winner)
+        player_score, computer_score = update_score(winner,
+                                    player_score, computer_score)
+        display_scores(player_score, computer_score)
 
-            prompt(messages("scores").
-                   format(player=player_score, computer=computer_score))
+        winner_match = grand_winner(player_score, computer_score)
+        if winner_match:
+            prompt(messages("grand_winner").
+                   format(winner_match=winner_match))
+            player_score, computer_score = reset_score(
+                player_score, computer_score)
 
-            winner_round = grand_winner(player_score, computer_score)
+            prompt(messages("reset"))
 
-            if winner_round:
-                prompt(messages("grand_winner").
-                       format(winner_round=winner_round))
-
-                player_score, computer_score = reset_score(
-                    player_score, computer_score)
-                prompt(messages("reset"))
-
-        else:
+        if not restart_game():
             clear_screen()
             break
 
-rock_paper_scissors()
+play_game()
