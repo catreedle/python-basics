@@ -1,12 +1,12 @@
 import random
 import json
-import os
 
 with open('rps.json', 'r') as file:
     MESSAGE = json.load(file)
 
 def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    print("\033[H\033[J")  # ANSI escape code to clear the screen
+
 
 def messages(message, lang="en"):
     return MESSAGE[lang][message]
@@ -18,6 +18,8 @@ VALID_CHOICES = {
     'l': 'lizard',
     'sp': 'spock'
 }
+
+WINNING_SCORE = 3
 
 def prompt(message):
     print(f'>>>{message}')
@@ -75,9 +77,9 @@ def display_scores(player_score, computer_score):
 
 def grand_winner(player_score, computer_score):
     result = ''
-    if player_score == 3:
+    if player_score == WINNING_SCORE:
         result = 'Player'
-    if computer_score == 3:
+    if computer_score == WINNING_SCORE:
         result = 'Computer'
     return result
 
