@@ -19,13 +19,15 @@ VALID_CHOICES = {
     'sp': 'spock'
 }
 
+VALID_CHOICES_VALUES = list(VALID_CHOICES.values())
+
 WINNING_SCORE = 3
 
 def prompt(message):
     print(f'>>>{message}')
 
 def get_user_input(prompt_message):
-    return input(f'>>>{prompt_message}')
+    return input(f'>>>{prompt_message}').lower()
 
 def get_winner(player, computer):
     if player == computer:
@@ -44,20 +46,17 @@ def get_winner(player, computer):
     return messages("computer_win")
 
 def restart_game():
-    answer = get_user_input(messages("restart")).lower()
+    answer = get_user_input(messages("restart"))
+    while answer not in ('n', 'no', 'y', 'yes'):
+        answer = get_user_input(messages("restart_invalid"))
 
-    while not(answer in ('n', 'no') or answer in ('y', 'yes')):
-        answer = get_user_input(messages("restart_invalid")).lower()
+    clear_screen()
+    return answer in ['y', 'yes']
 
-    if answer in ['y', 'yes']:
-        clear_screen()
-        return True
-    return False
-
-def validate_input(value, values_dict):
-    while value not in values_dict.values():
-        if value in values_dict.keys():
-            value = values_dict[value]
+def validate_input(value):
+    while value not in VALID_CHOICES_VALUES:
+        if value in VALID_CHOICES:
+            value = VALID_CHOICES.get(value)
         else:
             value = get_user_input("That's not a valid choice\n")
 
@@ -95,17 +94,17 @@ def initialize_game():
     return player_score, computer_score
 
 def get_player_choice():
-    choices = ', '.join(VALID_CHOICES.values())
+    choices = ', '.join(VALID_CHOICES_VALUES)
     shorthand = ', '.join(VALID_CHOICES)
 
     choice = get_user_input(messages("input_choice").
-                          format(choices=choices, shorthand=shorthand)).lower()
-    choice = validate_input(choice, VALID_CHOICES)
+                          format(choices=choices, shorthand=shorthand))
+    choice = validate_input(choice)
 
     return choice
 
 def get_computer_choice():
-    computer_choice = random.choice(list((VALID_CHOICES.values())))
+    computer_choice = random.choice(VALID_CHOICES_VALUES)
     return computer_choice
 
 def play_round():
@@ -119,7 +118,7 @@ def play_round():
 
 def play_game():
     player_score, computer_score = initialize_game()
-    choices = (', '.join(VALID_CHOICES.values()))
+    choices = ', '.join(VALID_CHOICES_VALUES)
 
     prompt(messages("welcome").format(choices=choices))
 
