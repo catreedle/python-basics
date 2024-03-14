@@ -77,9 +77,9 @@ def display_scores(player_score, computer_score):
 def grand_winner(player_score, computer_score):
     result = ''
     if player_score == WINNING_SCORE:
-        result = 'Player'
+        result = 'player'
     if computer_score == WINNING_SCORE:
-        result = 'Computer'
+        result = 'computer'
     return result
 
 def reset_score(player_score, computer_score):
@@ -131,8 +131,10 @@ def play_game():
 
         winner_match = grand_winner(player_score, computer_score)
         if winner_match:
-            prompt(messages("grand_winner").
-                   format(winner_match=winner_match))
+            if winner_match == 'player':
+                prompt(messages("grand_winner_player"))
+            else:
+                prompt(messages("grand_winner_computer"))
             player_score, computer_score = reset_score(
                 player_score, computer_score)
 
