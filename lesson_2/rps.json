@@ -1,0 +1,16 @@
+{
+   "en": {
+    "welcome": "Welcome to {choices} Game!",
+    "input_choice": "Choose one: {choices}\nor the shorthand: {shorthand}\n",
+    "display_choices": "You chose {choice}, computer chose {computer_choice}",
+    "tie": "It's a tie",
+    "player_win": "You win!",
+    "computer_win": "Computer wins!",
+    "restart": "Do you want to play again? (y/n)?\n",
+    "choice_invalid": "That's not a valid choice\n",
+    "restart_invalid": "Please enter 'y' or 'n'.\n",
+    "scores": "Score is Player: {player} | Computer: {computer}",
+    "grand_winner": "{winner_round} is Grand Winner! 🎉 🎉 🎉",
+    "reset": "Match is over. Scores are reset to 0\n"
+   }
+}
