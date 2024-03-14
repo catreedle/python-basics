@@ -44,10 +44,10 @@ def get_winner(player, computer):
 def restart_game():
     answer = prompt_input(messages("restart")).lower()
 
-    while not(answer.startswith('n') or answer.startswith('y')):
+    while not(answer in ('n', 'no') or answer in ('y', 'yes')):
         answer = prompt_input(messages("restart_invalid")).lower()
 
-    if answer.startswith('y'):
+    if answer in ['y', 'yes']:
         clear_screen()
         winner = play_game()
 
