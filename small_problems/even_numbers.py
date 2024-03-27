@@ -7,6 +7,10 @@
 # for number in range(2, 100, 2):
 #     print(number)
     
-numbers = [number for number in range(1, 100) if not number % 2]
+# numbers = [number for number in range(1, 100) if not number % 2]
+# for number in numbers:
+#     print(number)
+
+numbers = [number for number in range(2, 100, 2)]
 for number in numbers:
     print(number)
